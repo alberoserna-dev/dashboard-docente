@@ -1,0 +1,65 @@
+---
+// src/components/Header.astro
+const nombreDocente = "JOSÉ ANTONIO ALBERO SERNA";
+---
+
+<header class="main-header">
+  <div class="header-left">
+    <span class="terminal-prompt">></span>
+    <span class="user-name">{nombreDocente}</span>
+  </div>
+  <nav class="header-right">
+    <a href="mailto:ja.alberoserna@edu.gva.es" title="Email"><i class="bi bi-envelope-at"></i></a>
+    <a href="https://github.com/alberoserna-dev" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://www.linkedin.com/in/josé-antonio-albero-serna-32068291/" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+  </nav>
+</header>
+
+<style>
+  .main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 2rem;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .terminal-prompt {
+    color: var(--color-amarillo-pastel);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 1.4rem;
+  }
+
+  .user-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .header-right {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .header-right a {
+    color: var(--text-principal);
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+  }
+
+  .header-right a:hover {
+    color: var(--color-naranja-pastel);
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+</style>

@@ -1,0 +1,66 @@
+---
+// src/pages/modulo/[id].astro
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  return [
+    { params: { id: 'pare' } },
+    { params: { id: 'sad' } },
+    { params: { id: 'ede' } },
+    { params: { id: 'ada' } },
+
+  ];
+}
+
+const { id } = Astro.params;
+// Filtramos todos los archivos que pertenecen a este módulo
+const temas = (await getCollection(id as any)) as any[];
+
+---
+
+<Layout>
+  <main class="main-container">
+    <header class="header">
+      <a href="javascript:history.back()" class="back-link"><i class="bi bi-arrow-left"></i> Volver</a>
+      <h1>Temario de <span class="text-pastel">{id.toUpperCase()}</span></h1>
+    </header>
+
+    <div class="temas-list">
+      {temas.map((tema) => (
+        <a href={`/modulo/${id}/${tema.id.split('/').pop()}`} class="tema-card">
+          <i class="bi bi-file-earmark-text"></i>
+          <span>{tema.data.title}</span>
+        </a>
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .temas-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .tema-card {
+    background: rgba(255,255,255,0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+  }
+  .tema-card:hover {
+    border-color: var(--color-amarillo-pastel);
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-3px);
+  }
+  .tema-card i { color: var(--color-naranja-pastel); font-size: 1.5rem; }
+</style>

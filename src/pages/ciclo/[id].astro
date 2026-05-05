@@ -1,0 +1,86 @@
+---
+// src/pages/ciclo/[id].astro
+import Layout from '../../layouts/Layout.astro';
+import CicloHexagono from '../../components/CicloHexagono.astro';
+import modulosData from '../../data/modulos.js';
+import ciclosData from '../../data/ciclos.js';
+
+// Indicamos qué páginas dinámicas generar
+export function getStaticPaths() {
+  return [
+    { params: { id: 'asir' } },
+    { params: { id: 'dam' } },
+    { params: { id: 'daw' } },
+  ];
+}
+
+// Obtenemos el ID de la URL (ej: 'asir')
+const { id } = Astro.params;
+
+// Filtramos los datos para mostrar solo lo de este ciclo
+const cicloActual = ciclosData.find(c => c.url.includes(id));
+const modulosDelCiclo = modulosData.filter(m => m.ciclo === id);
+---
+
+<Layout>
+  <main class="main-container">
+    <header class="header">
+      <a href="/" class="back-link"><i class="bi bi-arrow-left"></i> Volver a Ciclos</a>
+      <h1>Módulos de <span style={`color: ${cicloActual.color}`}> {cicloActual.titulo} </span></h1>
+    </header>
+
+    <div class="panal-container">
+      {modulosDelCiclo.map((modulo) => (
+        <CicloHexagono 
+          titulo={modulo.titulo}
+          icono={modulo.icono}
+          color={modulo.color}
+          url={modulo.url}
+        />
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  /* Reutilizamos los estilos del index */
+  .main-container { 
+    padding: 2rem 0; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    text-align: center; 
+    margin-top: 2vh;
+  }
+
+  .header {
+    margin-bottom: 3rem; 
+  }
+
+  .header h1 {
+    font-size: 3rem; 
+    margin-top: 1rem; 
+  }
+
+  .back-link {
+    color: #8b949e; 
+    text-decoration: none; 
+    font-size: 1.2rem; 
+    transition: color 0.2s; 
+  }
+  
+  .back-link:hover { 
+    color: #fff; 
+  }
+  
+  .panal-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  :global(.hexagon-wrapper) { margin: -10px 5px; }
+</style>

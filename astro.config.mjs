@@ -1,5 +1,9 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { remarkCallout } from '@r4ai/remark-callout';
 
-// https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  markdown: {
+    remarkPlugins: [remarkCallout],
+  },
+});

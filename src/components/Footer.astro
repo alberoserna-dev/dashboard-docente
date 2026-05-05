@@ -1,0 +1,36 @@
+---
+// src/components/Footer.astro
+const year = new Date().getFullYear();
+---
+
+<footer class="main-footer">
+  <div class="divider"></div>
+  <p>&copy; {year} — Panel de Recursos para Docentes de Informática</p>
+  <p class="tech-stack">Construido con <span class="astro-text">Astro</span></p>
+</footer>
+
+<style>
+  .main-footer {
+    margin-top: auto;
+    padding: 3rem 0 2rem 0;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+    margin-bottom: 2rem;
+  }
+
+  .astro-text {
+    color: var(--color-rojo-pastel);
+    font-weight: bold;
+  }
+
+  .tech-stack {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+  }
+</style>
