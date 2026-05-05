@@ -25,7 +25,7 @@ const modulosDelCiclo = modulosData.filter(m => m.ciclo === id);
 <Layout>
   <main class="main-container">
     <header class="header">
-      <a href="/" class="back-link"><i class="bi bi-arrow-left"></i> Volver a Ciclos</a>
+      <a href={import.meta.env.BASE_URL} class="back-link"><i class="bi bi-arrow-left"></i> Volver a Ciclos</a>
       <h1>Módulos de <span style={`color: ${cicloActual.color}`}> {cicloActual.titulo} </span></h1>
     </header>
 

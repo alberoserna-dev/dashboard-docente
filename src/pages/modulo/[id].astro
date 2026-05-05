@@ -28,7 +28,7 @@ const temas = (await getCollection(id as any)) as any[];
 
     <div class="temas-list">
       {temas.map((tema) => (
-        <a href={`/modulo/${id}/${tema.id.split('/').pop()}`} class="tema-card">
+        <a href={`${import.meta.env.BASE_URL}/modulo/${id}/${tema.id.split('/').pop()}`} class="tema-card">
           <i class="bi bi-file-earmark-text"></i>
           <span>{tema.data.title}</span>
         </a>

@@ -8,8 +8,9 @@ interface Props {
 }
 
 const { titulo, icono, color, url } = Astro.props;
+const finalUrl = url.startsWith('/') ? `${import.meta.env.BASE_URL}${url}` : url;
 ---
-<a href={url} class="hexagon-wrapper">
+<a href={finalUrl} class="hexagon-wrapper">
   <div class="hexagon" style={`background-color: ${color};`}>
     <div class="hexagon-content">
       <i class={icono}></i>
