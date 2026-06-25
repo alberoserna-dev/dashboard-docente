@@ -1,0 +1,3 @@
+[submodule "src/content/material-docente"]
+	path = src/content/material-docente
+	url = https://github.com/alberoserna-dev/material-docente.git
