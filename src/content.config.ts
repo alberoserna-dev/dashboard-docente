@@ -3,18 +3,16 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod'; 
 import { glob } from 'astro/loaders';
 
-const docs = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content" }),
+const materialDocente = defineCollection({
+  // Apunto el loader directamente a la carpeta del submódulo
+  loader: glob({ pattern: "**/*.md", base: "./src/content/material-docente" }),
   schema: z.object({
-    title: z.string(),
+    title: z.string().optional(),
     description: z.string().optional(),
   }),
 });
 
-// Registro cada carpeta de módulo como una colección
+// Exporto una ÚNICA colección con el nombre exacto de la carpeta
 export const collections = {
-  'pare': docs,
-  'sad': docs,
-  'ede': docs,
-  'ada': docs,
+  'material-docente': materialDocente,
 };

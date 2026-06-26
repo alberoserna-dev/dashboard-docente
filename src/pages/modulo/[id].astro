@@ -9,14 +9,18 @@ export async function getStaticPaths() {
     { params: { id: 'sad' } },
     { params: { id: 'ede' } },
     { params: { id: 'ada' } },
-
   ];
 }
 
 const { id } = Astro.params;
-// Filtramos todos los archivos que pertenecen a este módulo
-const temas = (await getCollection(id as any)) as any[];
 
+// Obtengo TODOS los archivos del submódulo
+const todosLosTemas = (await getCollection('material-docente')) as any[];
+
+// Filtro para quedarme solo con los de la asignatura actual.
+const temas = todosLosTemas.filter((tema) => 
+  tema.id.toLowerCase().startsWith(`${id.toLowerCase()}/`)
+);
 ---
 
 <Layout>
@@ -27,12 +31,18 @@ const temas = (await getCollection(id as any)) as any[];
     </header>
 
     <div class="temas-list">
-      {temas.map((tema) => (
-        <a href={`${import.meta.env.BASE_URL}/modulo/${id}/${tema.id.split('/').pop()}`} class="tema-card">
-          <i class="bi bi-file-earmark-text"></i>
-          <span>{tema.data.title}</span>
-        </a>
-      ))}
+      {temas.map((tema) => {
+        const slugEnlace = tema.slug || tema.id.replace(/\\/g, '/').split('/').pop()?.replace(/\.md$/, '');
+        
+        const tituloMostrar = tema.data?.title || slugEnlace;
+
+        return (
+          <a href={`${import.meta.env.BASE_URL}/modulo/${id}/${slugEnlace}`} class="tema-card">
+            <i class="bi bi-file-earmark-text"></i>
+            <span>{tituloMostrar}</span>
+          </a>
+        );
+      })}
     </div>
   </main>
 </Layout>

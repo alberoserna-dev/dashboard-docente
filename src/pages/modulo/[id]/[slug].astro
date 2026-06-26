@@ -1,28 +1,42 @@
 ---
 // src/pages/modulo/[id]/[slug].astro
 import Layout from '../../../layouts/Layout.astro';
-import { getCollection, getEntry, render } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const modulos = ['pare', 'sad', 'ede', 'ada'];
   const paths: Array<{ params: { id: string; slug: string } }> = [];
 
+  const todosLosTemas: any[] = await getCollection('material-docente');
+
   for (const modulo of modulos) {
-    const temas: any[] = await getCollection(modulo as any);
-    temas.forEach(tema => {
-      paths.push({
-        params: { id: modulo, slug: tema.id.split('/').pop() || '' }
-      });
+    const temasDelModulo = todosLosTemas.filter(tema => {
+      const rutaNormalizada = tema.id.replace(/\\/g, '/').toLowerCase();
+      return rutaNormalizada.startsWith(`${modulo.toLowerCase()}/`);
+    });
+    
+    temasDelModulo.forEach(tema => {
+      const slugGenerado = tema.slug || tema.id.replace(/\\/g, '/').split('/').pop()?.replace(/\.md$/, '');
+      paths.push({ params: { id: modulo, slug: slugGenerado } });
     });
   }
   return paths;
 }
 
 const { id, slug } = Astro.params;
-const entry = await getEntry(id as any, `${id}/${slug}`);
+const todosLosTemas = await getCollection('material-docente');
+
+const entry = todosLosTemas.find(tema => {
+  const perteneceAlModulo = tema.id.replace(/\\/g, '/').toLowerCase().startsWith(`${id?.toLowerCase()}/`);
+  const entrySlug = tema.slug || tema.id.replace(/\\/g, '/').split('/').pop()?.replace(/\.md$/, '');
+  
+  return perteneceAlModulo && entrySlug === slug;
+});
+
 if (!entry) {
-  return Astro.redirect('/404');
+  return Astro.redirect(`${import.meta.env.BASE_URL}/404`);
 }
+
 const { Content, headings } = await render(entry);
 ---
 
