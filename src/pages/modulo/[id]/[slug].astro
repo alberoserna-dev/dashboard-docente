@@ -4,7 +4,7 @@ import Layout from '../../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const modulos = ['pare', 'sad', 'ede', 'ada'];
+  const modulos = ['pare', 'sad', 'ede', 'ada', 'sri']; // Lista de módulos válidos
   const paths: Array<{ params: { id: string; slug: string } }> = [];
 
   const todosLosTemas: any[] = await getCollection('material-docente');
@@ -16,7 +16,7 @@ export async function getStaticPaths() {
     });
     
     temasDelModulo.forEach(tema => {
-      const slugGenerado = tema.slug || tema.id.replace(/\\/g, '/').split('/').pop()?.replace(/\.md$/, '');
+      const slugGenerado = tema.id.replace(/\\/g, '/').split('/').pop()?.replace(/\.md$/, '');
       paths.push({ params: { id: modulo, slug: slugGenerado } });
     });
   }
@@ -28,7 +28,7 @@ const todosLosTemas = await getCollection('material-docente');
 
 const entry = todosLosTemas.find(tema => {
   const perteneceAlModulo = tema.id.replace(/\\/g, '/').toLowerCase().startsWith(`${id?.toLowerCase()}/`);
-  const entrySlug = tema.slug || tema.id.replace(/\\/g, '/').split('/').pop()?.replace(/\.md$/, '');
+  const entrySlug = tema.id.replace(/\\/g, '/').split('/').pop()?.replace(/\.md$/, '');
   
   return perteneceAlModulo && entrySlug === slug;
 });
