@@ -155,6 +155,7 @@ const { Content, headings } = await render(entry);
   /* Estilos del contenido Markdown */
   .markdown-body {
     max-width: 800px;
+    min-width: 0;
   }
 
   .content-header {
@@ -192,6 +193,14 @@ const { Content, headings } = await render(entry);
     line-height: 1.8;
     margin-bottom: 1.5rem;
     color: #d1d5db;
+  }
+
+  .content-render :global(img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+    border-radius: 8px;
   }
 
   /* --- ESTILOS DE LOS CALLOUTS DE OBSIDIAN --- */
