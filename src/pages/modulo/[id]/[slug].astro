@@ -234,4 +234,37 @@ const { Content, headings } = await render(entry);
     .doc-container { grid-template-columns: 1fr; }
     .sidebar { display: none; }
   }
+
+  /* --- ESTILOS PARA TABLAS DE MARKDOWN --- */
+  .content-render :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .content-render :global(th),
+  .content-render :global(td) {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .content-render :global(th) {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-amarillo-pastel);
+    font-weight: 600;
+  }
+
+  /* Efecto cebra suave para facilitar la lectura por filas */
+  .content-render :global(tbody tr:nth-child(even)) {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  /* Resaltado sutil al pasar el ratón por una fila */
+  .content-render :global(tbody tr:hover) {
+    background: rgba(255, 255, 255, 0.06);
+  }
 </style>
